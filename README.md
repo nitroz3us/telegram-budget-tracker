@@ -1,6 +1,9 @@
 # Budget Tracker Bot
 
-https://github.com/user-attachments/assets/fc4aa895-206c-478c-b90e-f74ca2ae467d
+
+https://github.com/user-attachments/assets/1502b61c-677c-449f-9984-1e84e9b590aa
+
+
 
 ## 📝 Purpose
 
