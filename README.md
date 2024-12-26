@@ -212,6 +212,7 @@ python main.py
 ## 🚀 Latest Updates
 
 ### Version 1.1.0 (26 December 2024)
+<img width="504" alt="Screenshot 2024-12-26 at 8 41 37 PM" src="https://github.com/user-attachments/assets/e08ff390-e838-4651-ac3d-725ef92c952c" />
 
 - ✨ Added spoiler tags to hide sensitive balance information
 - 🎨 Improved monthly report formatting with transaction details
