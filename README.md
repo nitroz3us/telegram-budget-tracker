@@ -219,7 +219,7 @@ python main.py
 
 ## 🚀 Latest Updates
 
-### Version 1.2.0 (March 2024)
+### Version 1.2.0 (27 December 2024)
 <img width="618" alt="Screenshot 2024-12-27 at 4 25 18 PM" src="https://github.com/user-attachments/assets/f9c01d6f-cd73-4fff-bc5b-027eac7adade" />
 
 - ✨ Added Excel import functionality for bulk transaction imports
