@@ -31,4 +31,24 @@ Use:
 📊 /report \- View your transactions
 ❓ /help \- More commands
 """
+HELP_MESSAGE = """
+Available commands:
+...
+📤 /import - Import transactions from Excel file
+...
+"""
+IMPORT_TEMPLATE_MESSAGE = """
+📊 Excel Import Template Format:
+
+Required columns:
+• date: YYYY-MM-DD
+• amount: Positive for income, negative for expenses
+• category: Must be one of the valid categories
+• description: Transaction description
+
+Example:
+date,amount,category,description
+2024-03-15,-25.50,Food,Lunch at cafe
+2024-03-15,1000.00,Income,Salary
+"""
 # ... other message templates ...

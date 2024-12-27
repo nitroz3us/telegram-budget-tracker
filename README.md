@@ -29,6 +29,7 @@ This is a Telegram bot that helps you track your expenses and income, manage you
   - Others
 - Multi-word descriptions support
 - Automatic date and time recording
+- Bulk import via Excel files
 
 ### 📊 Reporting & Analysis
 
@@ -79,13 +80,20 @@ This is a Telegram bot that helps you track your expenses and income, manage you
 4. **/report**
 
    - Generates and sends a report of all transactions in an Excel file.
+   - The generated file can be used as a template for imports.
 
 5. **/monthly `[YYYY-MM]`**
 
    - Shows expenses for a specific month (defaults to the current month if no argument is provided).
    - Expenses are shown by category, with a breakdown of totals and percentages.
 
-6. **/help**
+6. **/import**
+
+   - Imports transactions from an Excel file.
+   - The file must match the format of /report output.
+   - Required columns: date, amount, category, description, running_balance, created_at.
+
+7. **/help**
    - Displays a list of available commands.
 
 ## Explanation of Code:
@@ -207,6 +215,13 @@ python main.py
 - The bot will only respond to the Telegram user ID specified in `ALLOWED_USER_ID`
 
 ## 🚀 Latest Updates
+
+### Version 1.2.0 (March 2024)
+
+- ✨ Added Excel import functionality for bulk transaction imports
+- 🔄 Automatic balance recalculation after imports
+- 📝 Enhanced help documentation with import instructions
+- 🛠️ Added validation for Excel imports
 
 ### Version 1.1.0 (26 December 2024)
 

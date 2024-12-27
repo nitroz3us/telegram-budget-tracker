@@ -25,6 +25,8 @@ from database.supabase import db
 from bot.messages import *
 from typing import Optional
 from telegram.constants import ParseMode
+import os
+from bot.utils import process_excel_import
 
 # Global variables declaration first
 starting_balance: Optional[float] = None
@@ -293,6 +295,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 💳 /balance - Check your current balance
 📊 /report - Generate an Excel report
 📈 /monthly [month] [year] - View monthly expenses
+📥 /import - Import transactions from Excel file
 ❓ /help - Show this help message
 
 💡 Examples:
@@ -300,8 +303,71 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 • /add -50 Food Lunch
 • /add 500 Income Salary
 • /monthly 3 2024
+
+📝 Import Guide:
+1. Use /report to get an Excel file with the correct format
+2. Use this as a template for your import file
+3. Send the file with /import command
+
+Required columns:
+• date
+• amount
+• category
+• description
+• running_balance
+• created_at
 """
     await update.message.reply_text(help_text)
+
+async def import_excel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    if update.effective_user.id != ALLOWED_USER_ID:
+        await update.message.reply_text(UNAUTHORIZED_MESSAGE)
+        return
+    
+    # Check if file is attached
+    if not update.message.document:
+        await update.message.reply_text(
+            "📤 Please attach an Excel file (.xlsx) with your transactions.\n"
+            "The file should have these columns:\n"
+            "- date (YYYY-MM-DD HH:MM:SS format)\n"
+            "- amount (positive for income, negative for expenses)\n"
+            "- category (must match valid categories)\n"
+            "- description\n"
+            "- running_balance (current balance after transaction)\n"
+            "- created_at (YYYY-MM-DD HH:MM:SS format)\n\n"
+            "💡 Tip: You can use /report to get an example of the correct format"
+        )
+        return
+    
+    # Verify file type
+    if not update.message.document.file_name.endswith('.xlsx'):
+        await update.message.reply_text("❌ Please send an Excel file (.xlsx)")
+        return
+    
+    # Download the file
+    file = await context.bot.get_file(update.message.document.file_id)
+    temp_file = f"temp_{update.effective_user.id}.xlsx"
+    await file.download_to_drive(temp_file)
+    
+    # Process the file
+    try:
+        status_message = await update.message.reply_text("📊 Processing your file...")
+        success, message = await process_excel_import(temp_file, db)
+        
+        if success:
+            # Reinitialize the global state after successful import
+            initialize_from_db()
+            await status_message.edit_text(f"✅ {message}")
+        else:
+            await status_message.edit_text(f"❌ Import failed:\n{message}")
+    
+    except Exception as e:
+        await status_message.edit_text(f"❌ Error: {str(e)}")
+    
+    finally:
+        # Clean up temporary file
+        if os.path.exists(temp_file):
+            os.remove(temp_file)
 
 __all__ = [
     'start',
@@ -311,7 +377,8 @@ __all__ = [
     'report',
     'monthly_expenses',
     'help_command',
-    'initialize_from_db'
+    'initialize_from_db',
+    'import_excel'
 ]
 
 

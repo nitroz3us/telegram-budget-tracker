@@ -20,7 +20,9 @@ The bot uses python-telegram-bot for Telegram interactions
 and Supabase for database operations.
 """
 
-from telegram.ext import Application, CommandHandler
+from telegram.ext import Application, CommandHandler, MessageHandler
+from telegram import Update
+from telegram.ext.filters import Document
 from config import TELEGRAM_BOT_TOKEN
 from bot.handlers import *
 from database.supabase import db
@@ -44,6 +46,10 @@ def main():
     application.add_handler(CommandHandler("report", report))
     application.add_handler(CommandHandler("monthly", monthly_expenses))
     application.add_handler(CommandHandler("help", help_command))
+    application.add_handler(CommandHandler("import", import_excel))
+    
+    # Add document handler for Excel imports
+    application.add_handler(MessageHandler(Document.ALL & Document.FileExtension("xlsx"), import_excel))
 
     # Start the bot
     print("Starting bot...")
