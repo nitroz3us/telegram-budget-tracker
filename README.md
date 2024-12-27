@@ -1,6 +1,9 @@
 # Budget Tracker Bot
 
-https://github.com/user-attachments/assets/fc4aa895-206c-478c-b90e-f74ca2ae467d
+
+https://github.com/user-attachments/assets/1502b61c-677c-449f-9984-1e84e9b590aa
+
+
 
 ## 📝 Purpose
 
@@ -224,6 +227,7 @@ python main.py
 - 🛠️ Added validation for Excel imports
 
 ### Version 1.1.0 (26 December 2024)
+<img width="504" alt="Screenshot 2024-12-26 at 8 41 37 PM" src="https://github.com/user-attachments/assets/e08ff390-e838-4651-ac3d-725ef92c952c" />
 
 - ✨ Added spoiler tags to hide sensitive balance information
 - 🎨 Improved monthly report formatting with transaction details
