@@ -22,9 +22,9 @@ def validate_import_data(df):
         errors.append("Invalid date format in 'date' or 'created_at' columns")
     
     # Validate amounts and running_balance
-    if not pd.to_numeric(df['amount'], errors='coerce').notna().all():
+    if pd.to_numeric(df['amount'], errors='coerce').isna().any():
         errors.append("Invalid amount values found")
-    if not pd.to_numeric(df['running_balance'], errors='coerce').notna().all():
+    if pd.to_numeric(df['running_balance'], errors='coerce').isna().any():
         errors.append("Invalid running_balance values found")
     
     # Validate categories
